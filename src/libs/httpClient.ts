@@ -29,6 +29,7 @@ httpClient.interceptors.response.use(
     return response
   },
   (error) => {
+    console.log('HTTP Error:', error)
     return Promise.reject(error)
   }
 )

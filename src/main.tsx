@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RoutesProvider } from './libs/Routes.tsx'
 import { Provider } from './components/ui/provider.tsx'
 import { QueryClientProvider } from './libs/Query.tsx'
+import { Toaster } from './components/ui/toaster.tsx'
 import './index.css'
 
 const rootElement = document.getElementById('root')
@@ -19,6 +20,7 @@ root.render(
       <QueryClientProvider>
         <RoutesProvider />
       </QueryClientProvider>
+      <Toaster />
     </Provider>
   </StrictMode>
 )
