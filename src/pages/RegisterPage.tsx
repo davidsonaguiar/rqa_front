@@ -6,12 +6,7 @@ export function RegisterPage() {
   const { form, onSubmit, isPending } = useRegisterUser()
 
   return (
-    <VStack
-      minH="100vh"
-      justify="center"
-      bg="linear-gradient(to bottom, var(--chakra-colors-teal-600) 50%, var(--chakra-colors-white) 50%)"
-      p={4}
-    >
+    <>
       <Heading as="h1" color="white" size="3xl">
         Banco de questões
       </Heading>
@@ -23,43 +18,43 @@ export function RegisterPage() {
         </Card.Header>
         <Card.Body>
           <form id="register-user" onSubmit={form.handleSubmit(onSubmit)}>
-            <VStack gap={4} mb={6}>
-              <Field.Root invalid={!!form.formState.errors.name}>
+            <VStack gap={4}>
+              <Field.Root required invalid={!!form.formState.errors.name}>
                 <Field.Label>
                   Nome <Field.RequiredIndicator />
                 </Field.Label>
                 <Input
                   type="text"
                   placeholder="Digite seu nome completo"
-                  {...form.register('name')}
+                  {...form.register('name', { required: true })}
                 />
                 <Field.ErrorText>
                   {form.formState.errors.name?.message}x
                 </Field.ErrorText>
               </Field.Root>
 
-              <Field.Root invalid={!!form.formState.errors.email}>
+              <Field.Root required invalid={!!form.formState.errors.email}>
                 <Field.Label>
                   Email <Field.RequiredIndicator />
                 </Field.Label>
                 <Input
                   type="email"
                   placeholder="Digite seu email"
-                  {...form.register('email')}
+                  {...form.register('email', { required: true })}
                 />
                 <Field.ErrorText>
                   {form.formState.errors.email?.message}
                 </Field.ErrorText>
               </Field.Root>
 
-              <Field.Root invalid={!!form.formState.errors.password}>
+              <Field.Root required invalid={!!form.formState.errors.password}>
                 <Field.Label>
                   Senha <Field.RequiredIndicator />
                 </Field.Label>
                 <PasswordInput
                   type="password"
                   placeholder="Digite sua senha"
-                  {...form.register('password')}
+                  {...form.register('password', { required: true })}
                 />
                 <Field.ErrorText>
                   {form.formState.errors.password?.message}
@@ -70,17 +65,27 @@ export function RegisterPage() {
         </Card.Body>
 
         <Card.Footer>
-          <Button
-            disabled={isPending}
-            bgColor="teal"
-            type="submit"
-            width="full"
-            form="register-user"
-          >
-            Registrar
-          </Button>
+          <VStack gap={2} w="full">
+            <Button
+              disabled={isPending}
+              bgColor="teal"
+              type="submit"
+              width="full"
+              form="register-user"
+            >
+              Registrar
+            </Button>
+            <Button
+              disabled={isPending}
+              type="button"
+              width="full"
+              variant="ghost"
+            >
+              Já tenho conta
+            </Button>
+          </VStack>
         </Card.Footer>
       </Card.Root>
-    </VStack>
+    </>
   )
 }
