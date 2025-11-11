@@ -8,8 +8,8 @@ interface Props {
   children: ReactNode
 }
 
-export function QueryClientProvider(props: Props) {
-  const queryClient = new QueryClient()
+const queryClient = new QueryClient()
 
+export function QueryClientProvider(props: Props) {
   return <Provider client={queryClient}>{props.children}</Provider>
 }

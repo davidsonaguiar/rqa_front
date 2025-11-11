@@ -1,9 +1,6 @@
 import { toaster } from '@/components/ui/toaster'
-import { registerSchema } from '@/schemas/registerSchema'
-import {
-  registerUserService,
-  type RegisterUserRequest,
-} from '@/services/registerUserService'
+import { loginSchema } from '@/schemas/loginSchema'
+import { loginService, type LoginRequest } from '@/services/loginService'
 import type { ApiErrorResponse } from '@/types/error'
 import { zodResolver } from '@hookform/resolvers/zod/src/index.js'
 import { useMutation } from '@tanstack/react-query'
@@ -11,41 +8,41 @@ import type { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 
-export function useRegisterUser() {
+export function useLogin() {
   const navigate = useNavigate()
 
-  const form = useForm<RegisterUserRequest>({
+  const form = useForm<LoginRequest>({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(loginSchema),
   })
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ['register-user'],
-    mutationFn: registerUserService,
-    onSuccess: () => {
+    mutationKey: ['login'],
+    mutationFn: loginService,
+    onSuccess: (data) => {
       form.reset()
       toaster.success({
-        title: 'Usuário registrado com sucesso!',
-        description: 'Você já pode fazer login com suas credenciais.',
+        title: 'Login realizado com sucesso!',
+        description: 'Bem-vindo de volta!',
       })
-      navigate('/auth/login')
+      localStorage.setItem('token', data.data.token)
+      navigate('/')
     },
     onError: (err) => {
       const axiosError = err as AxiosError<ApiErrorResponse>
       const message = axiosError.response?.data?.message
       toaster.error({
-        title: 'Erro ao registrar usuário',
-        description: message || 'Erro desconhecido ao registrar usuário.',
+        title: 'Erro ao realizar login',
+        description: message || 'Erro desconhecido ao realizar login.',
       })
     },
   })
 
-  function onSubmit(data: RegisterUserRequest) {
+  function onSubmit(data: LoginRequest) {
     mutate(data)
   }
 

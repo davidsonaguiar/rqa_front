@@ -1,5 +1,4 @@
-import { PasswordInput } from '@/components/ui/password-input'
-import { useRegisterUser } from '@/hooks/useRegisterUser'
+import { useForgotPassword } from '@/hooks/useForgotPassword'
 import {
   Button,
   Card,
@@ -11,8 +10,8 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router'
 
-export function RegisterPage() {
-  const { form, onSubmit, isPending } = useRegisterUser()
+export function ForgetPasswordPage() {
+  const { form, onSubmit, isPending } = useForgotPassword()
 
   return (
     <>
@@ -22,26 +21,12 @@ export function RegisterPage() {
       <Card.Root w="full" maxW="md" mx="auto" mt={4} p={6} boxShadow="lg">
         <Card.Header>
           <Card.Title asChild>
-            <Heading as="h2">Registre-se</Heading>
+            <Heading as="h2">Redefinir Senha</Heading>
           </Card.Title>
         </Card.Header>
         <Card.Body>
-          <form id="register-user" onSubmit={form.handleSubmit(onSubmit)}>
+          <form id="forgot-password" onSubmit={form.handleSubmit(onSubmit)}>
             <VStack gap={4}>
-              <Field.Root required invalid={!!form.formState.errors.name}>
-                <Field.Label>
-                  Nome <Field.RequiredIndicator />
-                </Field.Label>
-                <Input
-                  type="text"
-                  placeholder="Digite seu nome completo"
-                  {...form.register('name', { required: true })}
-                />
-                <Field.ErrorText>
-                  {form.formState.errors.name?.message}x
-                </Field.ErrorText>
-              </Field.Root>
-
               <Field.Root required invalid={!!form.formState.errors.email}>
                 <Field.Label>
                   Email <Field.RequiredIndicator />
@@ -55,20 +40,6 @@ export function RegisterPage() {
                   {form.formState.errors.email?.message}
                 </Field.ErrorText>
               </Field.Root>
-
-              <Field.Root required invalid={!!form.formState.errors.password}>
-                <Field.Label>
-                  Senha <Field.RequiredIndicator />
-                </Field.Label>
-                <PasswordInput
-                  type="password"
-                  placeholder="Digite sua senha"
-                  {...form.register('password', { required: true })}
-                />
-                <Field.ErrorText>
-                  {form.formState.errors.password?.message}
-                </Field.ErrorText>
-              </Field.Root>
             </VStack>
           </form>
         </Card.Body>
@@ -80,9 +51,9 @@ export function RegisterPage() {
               bgColor="teal"
               type="submit"
               width="full"
-              form="register-user"
+              form="forgot-password"
             >
-              Registrar
+              Recuperar
             </Button>
             <ChakraLink width="full" textDecoration="none" asChild>
               <Link to="/auth/login">
@@ -92,7 +63,7 @@ export function RegisterPage() {
                   width="full"
                   variant="ghost"
                 >
-                  Já tenho conta
+                  Voltar
                 </Button>
               </Link>
             </ChakraLink>

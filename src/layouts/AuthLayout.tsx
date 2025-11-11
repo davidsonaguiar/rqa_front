@@ -1,7 +1,18 @@
+import { useAuth } from '@/hooks/useAuth'
 import { VStack } from '@chakra-ui/react'
-import { Outlet } from 'react-router'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router'
 
 export function AuthLayout() {
+  const { isAuth, loading } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loading && isAuth) {
+      navigate('/')
+    }
+  }, [isAuth, loading, navigate])
+
   return (
     <>
       <VStack

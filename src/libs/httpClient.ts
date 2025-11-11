@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toaster } from '@/components/ui/toaster'
 
 const baseURL = import.meta.env.VITE_API_URL as string
 
@@ -17,6 +18,8 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem('token')
+    if (token) config.headers.Authorization = `Bearer ${token}`
     return config
   },
   (error) => {
@@ -30,6 +33,14 @@ httpClient.interceptors.response.use(
   },
   (error) => {
     console.log('HTTP Error:', error)
+    if (error.status === 401) {
+      toaster.error({
+        title: 'Sessão expirada',
+        description: 'Por favor, faça login novamente.',
+      })
+      localStorage.removeItem('token')
+      window.location.href = '/auth/login'
+    }
     return Promise.reject(error)
   }
 )

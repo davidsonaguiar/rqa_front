@@ -1,5 +1,5 @@
 import { PasswordInput } from '@/components/ui/password-input'
-import { useRegisterUser } from '@/hooks/useRegisterUser'
+import { useLogin } from '@/hooks/useLogin'
 import {
   Button,
   Card,
@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router'
 
-export function RegisterPage() {
-  const { form, onSubmit, isPending } = useRegisterUser()
+export function LoginPage() {
+  const { form, onSubmit, isPending } = useLogin()
 
   return (
     <>
@@ -22,26 +22,12 @@ export function RegisterPage() {
       <Card.Root w="full" maxW="md" mx="auto" mt={4} p={6} boxShadow="lg">
         <Card.Header>
           <Card.Title asChild>
-            <Heading as="h2">Registre-se</Heading>
+            <Heading as="h2">Login</Heading>
           </Card.Title>
         </Card.Header>
         <Card.Body>
-          <form id="register-user" onSubmit={form.handleSubmit(onSubmit)}>
+          <form id="login" onSubmit={form.handleSubmit(onSubmit)}>
             <VStack gap={4}>
-              <Field.Root required invalid={!!form.formState.errors.name}>
-                <Field.Label>
-                  Nome <Field.RequiredIndicator />
-                </Field.Label>
-                <Input
-                  type="text"
-                  placeholder="Digite seu nome completo"
-                  {...form.register('name', { required: true })}
-                />
-                <Field.ErrorText>
-                  {form.formState.errors.name?.message}x
-                </Field.ErrorText>
-              </Field.Root>
-
               <Field.Root required invalid={!!form.formState.errors.email}>
                 <Field.Label>
                   Email <Field.RequiredIndicator />
@@ -71,6 +57,9 @@ export function RegisterPage() {
               </Field.Root>
             </VStack>
           </form>
+          <ChakraLink colorPalette="teal" ml="auto" mt={5} asChild>
+            <Link to="/auth/forgot-password">Esqueceu a senha?</Link>
+          </ChakraLink>
         </Card.Body>
 
         <Card.Footer>
@@ -80,19 +69,19 @@ export function RegisterPage() {
               bgColor="teal"
               type="submit"
               width="full"
-              form="register-user"
+              form="login"
             >
-              Registrar
+              Entrar
             </Button>
             <ChakraLink width="full" textDecoration="none" asChild>
-              <Link to="/auth/login">
+              <Link to="/auth/register">
                 <Button
                   disabled={isPending}
                   type="button"
                   width="full"
                   variant="ghost"
                 >
-                  Já tenho conta
+                  Ainda não tenho conta
                 </Button>
               </Link>
             </ChakraLink>
