@@ -1,9 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RoutesProvider } from './libs/Routes.tsx'
-import { Provider } from './components/ui/provider.tsx'
+import { Provider as ChakraProvider } from './components/ui/provider.tsx'
 import { QueryClientProvider } from './libs/Query.tsx'
 import { Toaster } from './components/ui/toaster.tsx'
+import { Theme } from '@chakra-ui/react'
 import './index.css'
 
 const rootElement = document.getElementById('root')
@@ -16,11 +17,13 @@ const root = createRoot(rootElement)
 
 root.render(
   <StrictMode>
-    <Provider>
-      <QueryClientProvider>
-        <RoutesProvider />
-      </QueryClientProvider>
-      <Toaster />
-    </Provider>
+    <ChakraProvider>
+      <Theme colorPalette="teal">
+        <QueryClientProvider>
+          <RoutesProvider />
+        </QueryClientProvider>
+        <Toaster />
+      </Theme>
+    </ChakraProvider>
   </StrictMode>
 )

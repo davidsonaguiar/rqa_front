@@ -8,6 +8,7 @@ import {
   Input,
   VStack,
   Link as ChakraLink,
+  Text,
 } from '@chakra-ui/react'
 import { Link } from 'react-router'
 
@@ -30,11 +31,11 @@ export function LoginPage() {
             <VStack gap={4}>
               <Field.Root required invalid={!!form.formState.errors.email}>
                 <Field.Label>
-                  Email <Field.RequiredIndicator />
+                  E-mail <Field.RequiredIndicator />
                 </Field.Label>
                 <Input
                   type="email"
-                  placeholder="Digite seu email"
+                  placeholder="Digite seu e-mail"
                   {...form.register('email', { required: true })}
                 />
                 <Field.ErrorText>
@@ -57,32 +58,26 @@ export function LoginPage() {
               </Field.Root>
             </VStack>
           </form>
-          <ChakraLink colorPalette="teal" ml="auto" mt={5} asChild>
+          <ChakraLink ml="auto" mt={5} asChild>
             <Link to="/auth/forgot-password">Esqueceu a senha?</Link>
           </ChakraLink>
         </Card.Body>
 
         <Card.Footer>
-          <VStack gap={2} w="full">
+          <VStack gap={4} w="full">
             <Button
               disabled={isPending}
-              bgColor="teal"
               type="submit"
               width="full"
               form="login"
             >
               Entrar
             </Button>
-            <ChakraLink width="full" textDecoration="none" asChild>
+            <ChakraLink width="full" title="Ir para tela de cadastro" asChild>
               <Link to="/auth/register">
-                <Button
-                  disabled={isPending}
-                  type="button"
-                  width="full"
-                  variant="ghost"
-                >
+                <Text textAlign="center" width="full">
                   Ainda não tenho conta
-                </Button>
+                </Text>
               </Link>
             </ChakraLink>
           </VStack>

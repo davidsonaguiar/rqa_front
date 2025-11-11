@@ -7,6 +7,7 @@ import {
   Heading,
   VStack,
   Link as ChakraLink,
+  Text,
 } from '@chakra-ui/react'
 import { Link } from 'react-router'
 
@@ -65,7 +66,7 @@ export function ResetPasswordPage() {
         </Card.Body>
 
         <Card.Footer>
-          <VStack gap={2} w="full">
+          <VStack gap={4} w="full">
             <Button
               disabled={isPending}
               bgColor="teal"
@@ -75,16 +76,11 @@ export function ResetPasswordPage() {
             >
               Redefinir Senha
             </Button>
-            <ChakraLink width="full" textDecoration="none" asChild>
+            <ChakraLink width="full" title="Voltar para tela de login" asChild>
               <Link to="/auth/login">
-                <Button
-                  disabled={isPending}
-                  type="button"
-                  width="full"
-                  variant="ghost"
-                >
+                <Text width="full" textAlign="center">
                   Voltar
-                </Button>
+                </Text>
               </Link>
             </ChakraLink>
           </VStack>
