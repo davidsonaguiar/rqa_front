@@ -6,6 +6,8 @@ import { LoginPage } from '@/pages/LoginPage'
 import { MainLayout } from '@/layouts/MainLayout'
 import { ForgetPasswordPage } from '@/pages/ForgotPasswordPage'
 import { ResetPasswordPage } from '@/pages/ResetPasswordPage'
+import { CreateQuestionPage } from '@/pages/CreateQuestionPage'
+import { QuestionDetailsPage } from '@/pages/QuestionDetailsPage'
 
 export function RoutesProvider() {
   return (
@@ -13,6 +15,8 @@ export function RoutesProvider() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="create-question" element={<CreateQuestionPage />} />
+          <Route path="question/:id" element={<QuestionDetailsPage />} />
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="register" element={<RegisterPage />} />
